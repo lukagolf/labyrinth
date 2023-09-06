@@ -1,0 +1,29 @@
+                       ┌─────────────┐                                            ┌────────────┐
+                       │             │                                            │            │
+      ┌────────────────┤  IServer    │◄────initiates──remote──connection──────────┤  IClient   ├────────────┐
+      │                │             │                                            │            │            │
+      │                └─────┬───────┘                                            └─────┬──────┘            │
+      │                      │                                                          │                   │
+      │                 creates from client connection                  creates from server connection      │
+     has                     │                                                          │                   │
+      │                      ▼                                                          ▼                   │
+      │              ┌─────────────────┐                                     ┌─────────────────┐           has
+      │              │  NetworkStream  │                                     │  NetworkStream  │            │
+      │              └──┬───────────┬──┘                                     └──┬──────────┬───┘            │
+      ▼                 │           │                                           │          │                │
+┌────────────┐          │           │                                           │          │                ▼
+│  IReferee  │          ▼           ▼                                           ▼          ▼           ┌─────────┐
+└────────┬───┘     ┌─────────┐  ┌─────────┐                               ┌────────┐   ┌────────┐      │ IPlayer │
+  ▲      │         │  Reader │  │  Writer │                               │ Reader │   │ Writer │      └────────┬┘
+  │      │         └───┬─────┘  └────┬────┘                               └───┬────┘   └─────┬──┘        ▲      │
+  │      │             │             │                                        │              │           │      │
+ ACK   setup           └──────┬──────┘                                        └──────┬───────┘         setup   ACK
+  │      │                    │                                                      │                   │      │
+  │      │               constructs                                             constructs               │      │
+move   takeTurn               │                                                      │                takeTurn  move
+  │      │                    ▼                                                      ▼                   │      │
+  │      │           ┌──────────────────────┐                             ┌───────────────────┐          │      │
+ ACK    won─────────►│                      ├─setup--takeTurn--won───────►│                   ├─────────won    ACK
+  │                  │ ProxyPlayer:IPlayer  │                             │ IPlayerDispatcher │                 │
+  └──────────────────┤                      │◄─────ACK-move-ACK───────────┤                   │◄────────────────┘
+                     └──────────────────────┘                             └───────────────────┘

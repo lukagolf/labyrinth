@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+TEST_CMD="dotnet test"
+SCL_CMD="scl enable rh-dotnet50"
+
+if command -v scl &> /dev/null
+then
+  TEST_CMD="$SCL_CMD \"$TEST_CMD\""
+fi
+
+eval $TEST_CMD

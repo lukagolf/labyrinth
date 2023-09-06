@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\JsonUtilities\JsonUtilities.csproj" />
+      <ProjectReference Include="..\Referee\Referee.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Eto.Forms" Version="2.7.2" />
+      <PackageReference Include="Eto.Platform.Gtk" Version="2.7.2" />
+      <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
+    </ItemGroup>
+
+</Project>
